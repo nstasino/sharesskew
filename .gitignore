@@ -83,3 +83,8 @@ ENV/
 
 # Spyder project settings
 .spyderproject
+
+
+# Solvers
+Couenne-0.5/
+pyomo_tests/

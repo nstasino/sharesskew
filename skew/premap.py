@@ -4,7 +4,7 @@
 
 """
 import itertools
-import minlpsolver
+import minlpSolver
 
 
 def readHeavyHitters(heavyHittersFilename):
@@ -245,6 +245,6 @@ def readRelationSizes(sizesFilename):
         sizes.append(size)
     return sizes
 
-calculateShares(constructCostExprVars(schema, dominatingAttrs, dominatedAttrs)
+minlpSolver.calculateShares(constructCostExprVars(schema, dominatingAttrs, dominatedAttrs)
                 , readRelationSizes("relationsizes.txt"),
                 32)

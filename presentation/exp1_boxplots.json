@@ -1,0 +1,477 @@
+{
+data:[
+{
+showlegend:false,
+name:4,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"e6b7fe",
+hoverinfo:"all",
+ysrc:"nstasino:117:35ac6b",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+showlegend:false,
+name:8,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"111dac",
+hoverinfo:"all",
+ysrc:"nstasino:117:7f7fac",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+showlegend:false,
+name:16,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"ce7f88",
+hoverinfo:"all",
+ysrc:"nstasino:117:b5f9b5",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+showlegend:false,
+name:32,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"01b4b1",
+hoverinfo:"all",
+ysrc:"nstasino:117:d14e16",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+showlegend:false,
+name:64,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"ffe4ea",
+hoverinfo:"all",
+ysrc:"nstasino:117:e3deda",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+showlegend:false,
+name:100,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"77dd0e",
+hoverinfo:"all",
+ysrc:"nstasino:117:004160",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+showlegend:false,
+name:128,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"1b6031",
+hoverinfo:"all",
+ysrc:"nstasino:117:989298",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+showlegend:false,
+name:144,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"725bc4",
+hoverinfo:"all",
+ysrc:"nstasino:117:9b9899",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+showlegend:false,
+name:196,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"647070",
+hoverinfo:"all",
+ysrc:"nstasino:117:868b3a",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+showlegend:false,
+name:256,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"d1cccc",
+hoverinfo:"all",
+ysrc:"nstasino:117:ca94d1",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+showlegend:false,
+name:296,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"2ee277",
+hoverinfo:"all",
+ysrc:"nstasino:117:d06bc3",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+showlegend:false,
+name:384,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"1055d5",
+hoverinfo:"all",
+ysrc:"nstasino:117:b614e8",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+showlegend:false,
+name:512,
+marker:{
+color:"rgba(93, 164, 214, 0.5)",
+size:2
+},
+type:"box",
+uid:"b8c69e",
+hoverinfo:"all",
+ysrc:"nstasino:117:0f38a6",
+fillcolor:"rgba(93, 164, 214, 0.5)",
+whiskerwidth:1,
+line:{
+width:1,
+color:"rgb(0, 0, 0)"
+},
+jitter:0,
+pointpos:1
+},
+{
+legendgroup:"group2",
+name:"Mean Reducer",
+ysrc:"nstasino:117:06d891",
+xsrc:"nstasino:117:d87c63",
+mode:"lines",
+line:{
+dash:"dot",
+color:"rgb(37,37,37)",
+width:2,
+shape:"spline",
+smoothing:1
+},
+type:"scatter",
+uid:"011804",
+connectgaps:false,
+error_y:{
+visible:false
+}
+},
+{
+legendgroup:"group2",
+name:"Last Reducer",
+ysrc:"nstasino:117:69fb04",
+xsrc:"nstasino:117:d87c63",
+mode:"lines",
+line:{
+dash:"dash",
+color:"rgb(255, 127, 14)",
+width:2,
+shape:"linear"
+},
+type:"scatter",
+uid:"6456c9"
+}
+],
+layout:{
+showlegend:true,
+yaxis:{
+zeroline:false,
+showgrid:true,
+tickvals:[
+0,
+100,
+200,
+300,
+400,
+500,
+600,
+700,
+800,
+900,
+1000,
+1100,
+1200,
+1300,
+1400,
+1500,
+1600,
+1700,
+1800,
+1900,
+2000
+],
+dtick:100,
+title:"Time (seconds)",
+type:"linear",
+range:[
+-105.42500000000001,
+2113.255
+],
+autorange:true
+},
+paper_bgcolor:"rgb(255, 255, 255)",
+plot_bgcolor:"rgb(243, 243, 243)",
+title:"Elapsed Reducer times",
+legend:{
+y:0.99,
+x:0.96,
+borderwidth:2,
+bordercolor:"rgba(0, 0, 0, 0)",
+bgcolor:"rgb(226, 226, 226)",
+xanchor:"auto",
+traceorder:"reversed",
+font:{
+family:""
+}
+},
+xaxis:{
+zeroline:false,
+showgrid:true,
+gridwidth:0.25,
+tickvals:[
+4,
+16,
+32,
+64,
+100,
+128,
+144,
+196,
+256,
+296,
+384,
+512
+],
+title:"Reduce nodes",
+type:"linear",
+range:[
+2,
+516.8264984227129
+],
+autorange:true
+},
+annotations:[
+{
+opacity:0.8,
+xref:"x",
+arrowhead:2,
+yref:"y",
+text:"Last Reducer: 550.131",
+ay:-40,
+ax:60,
+y:550.131,
+x:32,
+font:{
+color:"#ff7f0e"
+},
+showarrow:true
+},
+{
+opacity:0.8,
+xref:"x",
+arrowhead:2,
+yref:"y",
+text:"Mean Reducer: 366.074",
+ay:-20,
+ax:60,
+y:366.0741,
+x:32,
+font:{
+color:"rgb(37,37,37)"
+},
+showarrow:true
+},
+{
+opacity:0.8,
+xref:"x",
+arrowhead:2,
+yref:"y",
+text:"Last Reducer: 254.961",
+ay:-40,
+ax:-40,
+y:254.961,
+x:256,
+font:{
+color:"#ff7f0e"
+},
+showarrow:true
+},
+{
+opacity:0.8,
+xref:"x",
+arrowhead:2,
+arrowsize:0,
+yref:"y",
+text:"Mean Reducer: 132.237",
+ay:-40,
+ax:60,
+y:132.237,
+x:256,
+font:{
+color:"rgb(37,37,37)"
+},
+showarrow:true
+},
+{
+opacity:0.8,
+xref:"x",
+arrowhead:2,
+yref:"y",
+text:"Last Reducer: 259.348",
+ay:-40,
+ax:-60,
+y:259.348,
+x:512,
+font:{
+color:"#ff7f0e"
+},
+showarrow:true
+},
+{
+opacity:0.8,
+xref:"x",
+arrowhead:2,
+yref:"y",
+text:"Mean Reducer: 72.067",
+ay:-40,
+ax:-60,
+y:72.06711,
+x:512,
+font:{
+color:"rgb(37,37,37)"
+},
+showarrow:true
+}
+],
+height:566,
+width:800,
+autosize:false,
+boxmode:"overlay",
+boxgap:0,
+boxgroupgap:0
+}
+}

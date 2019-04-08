@@ -4,61 +4,13 @@
 
 """
 import itertools
-import minlpSolver
 
+import sharesJoin
 
-def readHeavyHitters(heavyHittersFilename):
-    """ Reads heavy hitters from a given file
-
-    Input: the filename containing HHs, see example below:
-
-    Format example (3 spaces separation):
-    (attribute)   (value)
-    A2   A
-    A2   B
-    A3   C
-    A3   D
-
-    Output: A list of lists (denoted in paper by L_x) containing attribute
-    types, eg hh values and '_' to denote ordinary (i.e. non HH) type T_{_}
-
-    example: [['_', 'A', 'B'], ['_', C', 'D'], ['_']]
-
-    """
-    # all attributes also have ordinary values
-    hh = [['_'] for x in range(4)]
-    lines = [line.rstrip('\n') for line in open(heavyHittersFilename)]
-    for l in lines:
-        out = l.split('   ')
-        attribute = out[0]
-        # get rid of A from A2, transform to int
-        attribute = int(attribute[1:])
-        # heavyhitter  value
-        value = out[1]
-        hh[attribute].append(value)
-    return hh
-
-
-def combinations(hhlist):
-    """ Provide the product of all combinations of heavyhitter and ordinary
-    types
-
-    Input: A list of lists (denoted in paper by L_x) containing attribute
-    types, eg hh values and '_' to denote ordinary (i.e. non HH) type T_{_}
-    example: [['_', 'A', 'B'], ['C', 'D'], ['_']]
-
-    Output: The cartesian product of all combinations eg C_T, in paper
-        ('_', '_', '_', '_')
-        ('_', '_', '_', 'C')
-        ('_', '_', '_', 'D')
-        ('_', '_', 'A', '_')
-        ('_', '_', 'A', 'C')
-        ('_', '_', 'A', 'D')
-        ('_', '_', 'B', '_')
-        ('_', '_', 'B', 'C')
-        ('_', '_', 'B', 'D')
-    """
-    return list(itertools.product(*hhlist))
+heavyHittersFilename = 'heavyhitters.txt'
+sizesFilename = 'relationsizes.txt'
+schemaFilename = 'relations.txt'
+numberAttributes = 5
 
 
 def readSchema(schemaFilename, numberAttributes):
@@ -97,132 +49,6 @@ def readSchema(schemaFilename, numberAttributes):
     return schema
 
 
-def constructDominationMatrix(binaryschema):
-    """ Applies Domination Rule on a relational schema given in a
-    binary representation.
-    Domination Rule: An attr X dominates Y iff whenever Y appears in a
-    relation schema, X is present as well.
-
-    To construct the domination Matrix, when both X, Y are present the
-    respective matrix cell(x,y) is marked with 1.
-    Then, if there is a single case that X is present in a schema but
-    Y is not, the cell(x,y) is marked with 0.
-
-    Input: binaryschema  A list of lists, typically the output of readSchema
-                        function
-                        [
-                            [0, 1, 1, 0, 0, 0],
-                            [0, 0, 1, 1, 0, 1],
-                            [0, 0, 0, 1, 1, 0]
-                        ]
-
-    Output: A list of lists containing all dominatING attributes in the schema
-            eg [
-            [-1, -1, -1, -1, -1, -1],
-            [-1, 0, 0, -1, -1, -1],
-            [-1, 1, 0, 1, -1, 1],
-            [-1, -1, 1, 0, 1, 1],
-            [-1, -1, -1, 0, 0, -1],
-            [-1, -1, 0, 0, -1, 0]
-            ]
-    """
-    # Initialize domination matrix with -1 i.e. no attribute
-    # coincidence in same relation
-    dominationMatrix = []
-    for cur in range(0, len(binaryschema[0])):
-        dominationMatrix.append([-1 for x in range(0, len(binaryschema[0]))])
-    # Mark attr coincidence with 1
-    for cur in range(0, len(dominationMatrix)):
-        for idx, rel in enumerate(binaryschema):
-            for otherAttr in range(0, len(dominationMatrix)):
-                if (rel[cur] == 1 and rel[otherAttr] == 1):
-                    dominationMatrix[cur][otherAttr] = 0
-    # Mark domination with 0
-    for cur in range(0, len(dominationMatrix)):
-        for idx, rel in enumerate(binaryschema):
-            for otherAttr in range(0, len(dominationMatrix)):
-                if (rel[cur] == 1 and rel[otherAttr] == 0 and
-                        dominationMatrix[cur][otherAttr] == 0):
-                    print "%d (%d) dominates %d (%d) in %r(%r)" % \
-                        (cur, rel[cur], otherAttr, rel[otherAttr], idx, rel)
-                    dominationMatrix[cur][otherAttr] = 1
-    return dominationMatrix
-
-
-def inferDominatingAttrs(domMatrix):
-    """ Infers dominating and dominated attributes from a domination matrix
-    Input: a domination matrix typically coming from
-    function constructDominationMatrix()
-
-    For attributes X, Y when both matrix(x, y) and matrix(y, x) are equal to 1
-    they are NOT dominating each other.
-    If cells m(x,y) = 1 and m(y,x) = 0 (or vice versa), then X dominates Y
-    (or equivalently Y dominates X)
-
-    eg [
-        [-1, -1, -1, -1, -1, -1],
-        [-1, 0, 0, -1, -1, -1],
-        [-1, 1, 0, 1, -1, 1],
-        [-1, -1, 1, 0, 1, 1],
-        [-1, -1, -1, 0, 0, -1],
-        [-1, -1, 0, 0, -1, 0]
-        ]
-    Output: Two lists. The first contains dominatING attrs and the second
-    dominated attrs
-    eg ([2, 3], [1, 4, 5])
-    """
-    m = domMatrix
-    dominatingAttrs = []
-    dominatedAttrs = []
-    for i in range(len(m)):
-        for j in range(i, len(m)):
-            # if both have 1's in domination matrix they are equals
-            if m[i][j] == m[j][i] == 1:
-                # print "They are not dominating each other", i, j
-                pass
-            # 1 dominates 0
-            elif m[i][j] == 1 and m[j][i] == 0:
-                dominatingAttrs.append(i)
-                dominatedAttrs.append(j)
-                # print "%d dominates %d" % (i, j)
-            # 0 is dominated by 1
-            elif m[i][j] == 0 and m[j][i] == 1:
-                dominatingAttrs.append(j)
-                dominatedAttrs.append(i)
-                # print "%d dominates %d" % (j, i)
-    # Remove duplicate by converting the list to a set and then back to a list
-    dominatingAttrs = list(set(dominatingAttrs))
-    dominatedAttrs = list(set(dominatedAttrs))
-    return (dominatingAttrs, dominatedAttrs)
-
-
-def constructCostExprVars(schema, dominatingAttrs, dominatedAttrs):
-    """ Find which attributes are terms for the cost expression
-    eg ry+s+tx
-    One term for one relation and equal to the product of the dominatING
-    attributes not in the schema of this specific relation
-    input  schema  [
-                    [0, 1, 1, 0, 0, 0],
-                    [0, 0, 1, 1, 0, 1],
-                    [0, 0, 0, 1, 1, 0]
-                    ]
-            dominatingAttrs [2, 3]
-            dominatedAttrs [1, 4, 5]
-
-    Output terms list of terms to be summed up eg [[2], [], [3]]
-    """
-    terms = []
-    for rel in schema:
-        relAttrsParticipating = set(dominatingAttrs)
-        for attr, value in enumerate(rel):
-            if value == 1:  # relation contains attribute
-                if attr not in dominatedAttrs and attr in dominatingAttrs:
-                    # leave only non-presenet attrs in the term
-                    relAttrsParticipating = relAttrsParticipating - set([attr])
-        terms.append(list(relAttrsParticipating))
-    return terms
-
-
 def readRelationSizes(sizesFilename):
     """ Reads from file the relation sizes
 
@@ -245,6 +71,186 @@ def readRelationSizes(sizesFilename):
         sizes.append(size)
     return sizes
 
-minlpSolver.calculateShares(constructCostExprVars(schema, dominatingAttrs, dominatedAttrs)
-                , readRelationSizes("relationsizes.txt"),
-                32)
+
+def readHeavyHitters(heavyHittersFilename, numberAttributes):
+    """ Reads heavy hitters from a given file
+
+    Input: the filename containing HHs, see example below:
+
+    Format example (3 spaces separation):
+    (attribute)   (value)   (relation_i:tuples,relation_i:tuples,...)
+    A2   2   R1:1000,R2:1000,R3:1000
+    A3   31   R1:500,R2:500,R3:500
+    A3   32   R1:500,R2:500,R3:500
+
+    Output: hhinfo A complete dict with heavy hitters, their attribute name,
+    hh value, skew relation sizes of the form  {'A3:32': {'attribute': 3,
+     'R2': 500, 'R1': 500, 'value': 32, 'R3': 500}, 'A3:31': {'attribute': 3,
+     'R2': 500, 'R1': 500, 'value': 31, 'R3': 500}, 'A2:2': {'attribute': 2,
+     'R2': 1000, 'R1': 1000, 'value': 2, 'R3': 1000}}
+
+            hh A list of lists (denoted in paper by L_x) containing attribute
+    types, eg hh values and '_' to denote ordinary (i.e. non HH) type T_{_}
+
+    example: [['_'], []['_', 'A', 'B'], ['_', C', 'D'], ['_']]
+
+    """
+    # all attributes also have ordinary values
+    hh = [['_'] for x in xrange(numberAttributes)]
+    hhinfo = {}
+    hhinfo['attributes'] = {}
+    lines = [line.rstrip('\n') for line in open(heavyHittersFilename)]
+    for l in lines:
+        out = l.split('   ')
+        attribute = int(out[0].split('A')[1])
+        value = int(out[1])
+        skewness = out[2]
+        relations_percentages = []
+        for sk in skewness.split(','):
+            relation_skew = float(sk.split(':')[1])
+            relations_percentages.append(relation_skew)
+        if attribute not in hhinfo['attributes']:
+            hhinfo['attributes'][attribute] = {}
+        hhinfo['attributes'][attribute][value] = {}
+        hhinfo['attributes'][attribute][value]['type'] = 'hh'
+        hhinfo['attributes'][attribute][value]['relations'] = relations_percentages
+        hh[int(out[0][1:])].append(out[1])
+    return (hhinfo, hh)
+
+
+def refine_sizes(hhinfo):
+    for h in hhinfo['attributes']:
+        ordinary = [1.0, 1.0, 1.0]
+        for v in hhinfo['attributes'][h]:
+            h, v
+            ordinary = [
+                x - y for x, y in zip(ordinary, hhinfo['attributes'][h][v]['relations'])]
+        hhinfo['attributes'][h]['_'] = {}
+        hhinfo['attributes'][h]['_']['type'] = 'ordinary'
+        hhinfo['attributes'][h]['_']['relations'] = ordinary
+        print ordinary
+    return hhinfo
+
+
+def combinations(hh):
+    """ Provide the product of all combinations of heavyhitter and ordinary
+    types
+
+    Input: A list of lists (denoted in paper by L_x) containing attribute
+    types, eg hh values and '_' to denote ordinary (i.e. non HH) type T_{_}
+    example: [['_', 'A:value1', 'B:value2'], ['C:value3', 'D:value4'], ['_']]
+
+    Output: The cartesian product of all combinations eg C_T, in paper
+        ('_', '_', '_', '_')
+        ('_', '_', '_', 'C:value23')
+        ('_', '_', '_', 'D')
+        ('_', '_', 'A:value1', '_')
+        ('_', '_', 'A:value1', 'C:value3')
+        ('_', '_', 'A:value1', 'D:value4')
+        ('_', '_', 'B:value2', '_')
+        ('_', '_', 'B:value2', 'C:value3')
+        ('_', '_', 'B:value2', 'D:value4')
+    """
+    return list(itertools.product(*hh))
+
+
+def replaceSize(combination, relationSizes, hhinfo):
+    """ Replaces sizes in original query with the number of tuples
+    corresponding to the residual query sizes, depending on the prevalence of
+    a HH attribute in the dataset.
+    """
+    p = [1.0 for i in xrange(len(relationSizes))]
+# for each attribute of the residual join = combination
+    for attr, value in enumerate(combination):
+        '''
+        First calculate p_bar which holds the probability
+        for a value being ordinary i.e. not heavy hitter
+        '''
+        p_bar = [0.0 for i in xrange(len(relationSizes))]
+        # if attribute not in heavy hitters at all (for example A1, or A0) skip fwd the loop
+        try:
+            hhinfo['attributes'][attr]
+        except KeyError:
+            continue
+#         print attr, value,
+        '''
+        p_bar is 1.0 - the sum of all hh probabilities
+        '''
+        for hhval in hhinfo['attributes'][attr].keys():
+            p_bar = [
+                x+y for x, y in zip(p_bar, hhinfo['attributes'][attr][hhval]['relations'])]
+
+#         if this is actually an ordinary value
+        if value == '_':
+            p = [1.0 - p_r for p_r in p_bar]
+        else:
+            value = float(value)
+# -0.0 denotes non participation in relation for this attribute
+            p = [p_r if p_r != -0.0 else 1.0 for p_r in hhinfo['attributes']
+                 [attr][value]['relations']]
+        relationSizes = [p_i * sizes_i
+                         for p_i, sizes_i in zip(p, relationSizes)]
+    return relationSizes
+
+
+def calculateResidualJoins(heavyHittersFilename, numberAttributes, numberReducers, relationSizes):
+    """ Calculates all residual joins shares
+    """
+    sharesAllResiduals = []
+    hhinfo, hh = readHeavyHitters(heavyHittersFilename, numberAttributes)
+    combs = combinations(hh)
+    for cmb in combs:
+        skewedRelationSizes = replaceSize(cmb, relationSizes, hhinfo)
+        heavyhittersList = []
+        for attr, value in enumerate(cmb):
+            if value == '_':
+                pass
+            else:
+                heavyhittersList.append(attr)
+        s = sharesJoin.sharesCalculator(readSchema(schemaFilename, numberAttributes),
+                                        numberAttributes, skewedRelationSizes, numberReducers, heavyhittersList, None)
+
+        # print "Residual join: ",
+        # print ','.join(str(c) for c in cmb)
+        # print "Residual join sizes:",
+        # print ','.join(str(size) for size in skewedRelationSizes)
+
+        # print "Residual Join is %s" % cmb
+        # print "Residual join sizes: %s" % skewedRelationSizes
+        # print s.dominatingAttrs
+        # print s.dominatedAttrs
+        # print s.expressionVars
+        sharesAllResiduals.append(s.getShares())
+    return (combs, sharesAllResiduals)
+
+
+def calculateResidualJoinsQ(heavyHittersFilename, numberAttributes, reducerCapacity, relationSizes):
+    """ Calculates all residual joins shares
+    """
+    sharesAllResiduals = []
+    hhinfo, hh = readHeavyHitters(heavyHittersFilename, numberAttributes)
+    combs = combinations(hh)
+    for cmb in combs:
+        skewedRelationSizes = replaceSize(cmb, relationSizes, hhinfo)
+        print skewedRelationSizes
+        heavyhittersList = []
+        for attr, value in enumerate(cmb):
+            if value == '_':
+                pass
+            else:
+                heavyhittersList.append(attr)
+        s = sharesJoin.sharesCalculatorQ(readSchema(schemaFilename, numberAttributes),
+                                         numberAttributes, skewedRelationSizes, reducerCapacity, heavyhittersList, None)
+
+        # print "Residual join: ",
+        # print ','.join(str(c) for c in cmb)
+        # print "Residual join sizes:",
+        # print ','.join(str(size) for size in skewedRelationSizes)
+
+        # print "Residual Join is %s" % cmb
+        # print "Residual join sizes: %s" % skewedRelationSizes
+        # print s.dominatingAttrs
+        # print s.dominatedAttrs
+        # print s.expressionVars
+        sharesAllResiduals.append(s.getShares())
+    return (combs, sharesAllResiduals)

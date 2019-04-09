@@ -16,4 +16,7 @@ Foto Afrati, afrati [-at-] gmail [-dot-] com
 
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[AGPLv3](https://choosealicense.com/licenses/agpl-3.0/)
+
+## Copyright
+The Authors.

@@ -15,8 +15,5 @@ Nikos Stasinopoulos, nstasinopoulos [-at-] gmail [-dot-] com
 Foto Afrati, afrati [-at-] gmail [-dot-] com
 
 
-## License
-[AGPLv3](https://choosealicense.com/licenses/agpl-3.0/)
-
 ## Copyright
 The Authors.
